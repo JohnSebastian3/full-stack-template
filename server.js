@@ -22,6 +22,10 @@ MongoClient.connect(dbConnectionString)
     collection = db.collection('sampleCollection')
   })
 
+  app.get('/', (req, res) => {
+    res.render('index.ejs');
+  })
+
 
 app.listen(process.env.PORT || PORT, () => {
   console.log('Server is running');
