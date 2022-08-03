@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 let db,
@@ -15,16 +15,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 
-MongoClient.connect(dbConnectionString)
-  .then(client => {
-    console.log('Connected to Database');
-    db = client.db(dbName);
-    collection = db.collection('sampleCollection')
-  })
 
-  app.get('/', (req, res) => {
-    res.render('index.ejs');
-  })
+
+app.get('/', (req, res) => {
+  res.render('index.ejs');
+})
 
 
 app.listen(process.env.PORT || PORT, () => {
