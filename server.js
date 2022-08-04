@@ -4,10 +4,17 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-let db,
-    dbConnectionString = process.env.DB_STRING,
-    dbName = 'template',
-    collection;
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.DB_STRING, 
+      {useNewUrlParser: true});
+    console.log(`Connected to Database: ${mongoose.connection.name}`);
+  } catch(err) {
+    console.log('Failed to connect', error);
+  }
+}
+
+connectDB();
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -17,8 +24,15 @@ app.use(cors());
 
 
 
-app.get('/', (req, res) => {
-  res.render('index.ejs');
+app.get('/', async (req, res) => {
+  try {
+    // get data from database - specific collection
+    // After data is found, render ejs and pass data
+    // so that it can render on the page 
+    res.render('index.ejs');
+  } catch(err) {
+
+  }
 })
 
 
